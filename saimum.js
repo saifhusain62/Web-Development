@@ -1,28 +1,29 @@
-const group = document.querySelector(".group");
-const op = document.querySelector(".op");
+let lang = document.querySelector("#lang");
+let btnadd = document.querySelector("#btnadd");
+let List = document.querySelector("#List");
+let btnremove = document.querySelector("#btnremove");
 
+btnadd.onclick = (e) => {
+    e.preventDefault();
 
-const sizes = ["XS","S","M","L","XL","XXL"];
+    if (lang.value == "") {
+        console.log("Please add a Name");
+        return; // Ensure early return if input is empty
+    }
 
-group.innerHTML = sizes.map((size)=>
-    `<div>
-    
-    <input type="radio" id="${size}" value="${size}" name="size">
-    <label for="${size}">${size}</label>
-    
-    
-    </div>`
-).join(" ");
-
-
-const RadioButton = document.querySelector("input");
-for(const radioBtn of RadioButton){
-    radioBtn.addEventListener("change",ShowOutput)
+    const option = new Option(lang.value);
+    List.add(option);
+    lang.value = "";
 }
 
-function ShowOutput(e){
-    console.log(e);
-    if(this.checked){
-        document.querySelector(".output").innerHTML = `You Selected ${this.value}`
+btnremove.onclick = (e) => {
+    e.preventDefault();
+
+    let index = List.options.length;
+    while (index--) {
+        if (List.options[index].selected) {
+            List.remove(index);
+        }
     }
 }
+
